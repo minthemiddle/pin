@@ -23,5 +23,5 @@ Route::get('/pin/create', function () {
 })->name('pin.create');
 
 Route::post('/pin/store', function () {
-    return true;
+    return redirect(route('welcome'));
 })->name('pin.store');
