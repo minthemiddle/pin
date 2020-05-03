@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect(route('pin.create'));
 })->name('welcome');
+
+Route::get('/pin/create', function () {
+    return true;
+})->name('pin.create');
