@@ -21,3 +21,7 @@ Route::get('/', function () {
 Route::get('/pin/create', function () {
     return true;
 })->name('pin.create');
+
+Route::post('/pin/store', function () {
+    return true;
+})->name('pin.store');
