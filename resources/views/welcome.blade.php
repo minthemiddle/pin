@@ -80,6 +80,11 @@
             @endif
 
             <div class="content">
+            @if(session('access'))
+            <div>
+                {{ session('access')}}
+            </div>
+            @endif
                 <div class="title m-b-md">
                     Laravel
                 </div>

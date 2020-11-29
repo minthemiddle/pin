@@ -10,10 +10,10 @@ class WelcomeTest extends TestCase
     /** @test */
     public function can_not_access_welcome_page_without_pin()
     {
-        $this->withoutExceptionHandling();
         $response = $this->get(route('welcome'));
         $response->assertStatus(302);
         $response->assertRedirect(route('pin.create'));
+        $response->assertSessionHas('status', 'rejected');
     }
 
     /** @test */
@@ -22,6 +22,6 @@ class WelcomeTest extends TestCase
         $response = $this->post(route('pin.store', [
             'pin' => 'test1234',
         ]));
-        $response->assertRedirect(route('welcome'));
+        $response->assertRedirect(route('welcome'))->assertSessionHas('status', 'allowed');
     }
 }

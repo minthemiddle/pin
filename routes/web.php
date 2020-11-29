@@ -14,14 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+    if ($request->cookie('pin') === 'okay') {
+        return redirect(route('welcome'));
+    }
+
+    $request->session()->flash('status', 'rejected');
     return redirect(route('pin.create'));
 })->name('welcome');
 
 Route::get('/pin/create', function () {
-    return true;
+    return view('create');
 })->name('pin.create');
 
-Route::post('/pin/store', function () {
-    return redirect(route('welcome'));
+Route::post('/pin/store', function (Request $request) {
+    if ($request->pin === config('settings.PIN')) {
+        $request->session()->flash('status', 'allowed');
+        return redirect(route('welcome'))->cookie('pin', 'pass', 60);
+    }
+
+    return redirect(route('pin.create'));
 })->name('pin.store');
